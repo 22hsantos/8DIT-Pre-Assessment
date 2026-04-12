@@ -38,15 +38,26 @@ class SurveyGUI:
         frame1.grid(row=0, column=0, sticky=NSEW)
         frame1.grid_rowconfigure(0, weight=1)
         frame1.grid_columnconfigure(0, weight=1)
+        frame1.grid_columnconfigure(1, weight=1)
 
 
-        #Placeholder label for frame1, will replace with 'Collecting Person Data' later
-        label1 =Label(
+        #Collecting Person Data label
+        lbl_person_data =Label(
             frame1,
-            text="Frame 1",
+            text="Collecting Person Data",
             bg="pink"
         )
-        label1.grid(row=0,column=0)
+        lbl_person_data.grid(row=0,column=0)
+
+        #Show All button
+        btn_person_data = Button(
+            frame1,
+            text="Show All",
+            bg="lightgrey",
+            padx=10,
+            pady=5
+        )
+        btn_person_data.grid(row=0, column=1)
 
         #frame2 will be used for user input
         #'Name' and 'Age' labels will be added, with entry boxes to the right
