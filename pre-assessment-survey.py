@@ -1,12 +1,3 @@
-"""
--Make a GUI application which collects name, age and the answer to the survey question "Do you have a mobile phone?".
-
--When an Enter Data button is pressed, the information is collected from the GUI and used to construct an object for this person, stored in a list.
-
--When a Show All button is pressed, the data collection frame is removed and replaced by a frame in which each person's information is presented one by one using the Next/Previous buttons.
-
--An 'Add New Person' button will toggle the layout back to "data collection mode".
-"""
 
 """
 -Make a GUI application which collects name, age and the answer to the survey question "Do you have a mobile phone?".
@@ -21,21 +12,59 @@
 from tkinter import *
 
 class SurveyGUI:
+    """
+    GUI class for the survey interface.
+    """
     def __init__(self, parent):
+        """
+        Initialises the GUI, contains two frames for collection and viewing.
 
-        frame1 = Frame(parent, bg="pink")
-        frame1.pack(side=TOP, expand=True, fill=BOTH)
+        Args:
+            parent: The root window of the GUI.
+        """
 
-        label1 = Label(
+        parent.grid_rowconfigure(0, weight=1)#configure the grid priority for frame1
+        parent.grid_rowconfigure(1, weight=1)#configure the grid priority for frame2
+        parent.grid_columnconfigure(0, weight=1)#configure the grid priority for column 0
+
+        #frame1 will be used for 'Collecting Person Data'
+        #'Collecting Person Data' label will added, with 'Show All' button to the right
+        frame1 = Frame(
+            parent, 
+            width=200,
+            height=200,
+            bg="pink"
+            )
+        frame1.grid(row=0, column=0, sticky=NSEW)
+        frame1.grid_rowconfigure(0, weight=1)
+        frame1.grid_columnconfigure(0, weight=1)
+
+
+        #Placeholder label for frame1, will replace with 'Collecting Person Data' later
+        label1 =Label(
             frame1,
-            text = "Frame 1",
-            bg='pink',
-            width=10,
-        )  
-        label1.pack(expand=True, fill=BOTH)
+            text="Frame 1",
+            bg="pink"
+        )
+        label1.grid(row=0,column=0)
 
+        #frame2 will be used for user input
+        #'Name' and 'Age' labels will be added, with entry boxes to the right
+        #'Do you have a mobile phone?' label will be added underneath, with 'Yes' and 'No' radio buttons to the right
+        #'Enter Data' button will sit at the bottom of frame2
         frame2 = Frame(parent)
-        frame2.pack(side=BOTTOM)
+        frame2.grid(row=1, column=0, sticky=NSEW)
+
+        frame2.grid_rowconfigure(0, weight=1)
+        frame2.grid_columnconfigure(0, weight=1)
+
+        label2 = Label(
+            frame2,
+            text="Frame 2",
+            bg="lightblue"
+        )
+        label2.grid(row=0, column=0, sticky=NSEW)
+
 
 if __name__ == "__main__":
     root = Tk()
