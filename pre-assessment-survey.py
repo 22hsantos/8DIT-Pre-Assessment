@@ -69,38 +69,67 @@ class SurveyGUI:
         |                                                      |
         +------------------------------------------------------+
         """
+        #frame 2 will be used for data collection
+        #This will contain labels and entry fields for name, age, mobile phone, and enter data button
         frame2 = Frame(parent,bg="lightblue")
         frame2.grid(row=1, column=0, sticky=NSEW)
 
-        frame2.grid_rowconfigure(0, weight=1)
-        frame2.grid_columnconfigure(0, weight=1)
-
+        #first name label
         lbl_first_name = Label(
             frame2,
             text="First name:",
             bg="lightblue",
             padx=20,
+            pady=5
         )
         lbl_first_name.grid(row=0, column=0, sticky=W)
-        # make an entry for the first name
+        
+        #entry field for first name
+        entry_first_name = Entry(frame2)
+        entry_first_name.grid(row=0, column=1, sticky=W)
 
+        #age label
         lbl_age = Label(
             frame2,
             text="Age:",
             bg="lightblue",
             padx=20,
+            pady=5
         )
         lbl_age.grid(row=1, column=0, sticky=W)
-        # make an entry for the age
 
+        #entry field for age
+        entry_age = Entry(frame2)
+        entry_age.grid(row=1, column=1, sticky=W)
+
+        #mobile phone label
         lbl_mobile_phone = Label(
             frame2,
             text="Do you have a mobile phone?",
             bg="lightblue",
             padx=20,
+            pady=5
         )
         lbl_mobile_phone.grid(row=2, column=0, sticky=W)
-        # make two radio buttons (Yes/No) for the mobile phone question
+
+        self.phone_var = StringVar()
+        self.phone_var.set("No") # default value
+        rb_yes = Radiobutton(
+            frame2,
+            text="Yes",
+            variable=self.phone_var,
+            value="Yes",
+            bg="lightblue"
+        )
+        rb_yes.grid(row=2, column=1, sticky=W)
+        rb_no = Radiobutton(
+            frame2,
+            text="No",
+            variable=self.phone_var,
+            value="No",
+            bg="lightblue"
+        )
+        rb_no.grid(row=2, column=1, sticky=E)
 
         btn_enter_data = Button(
             frame2,
@@ -109,7 +138,7 @@ class SurveyGUI:
             padx=10,
             pady=5
         )
-        btn_enter_data.grid(row=3, column=0)
+        btn_enter_data.grid(row=3, column=1)
 
 if __name__ == "__main__":
     root = Tk()
