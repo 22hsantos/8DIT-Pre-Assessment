@@ -306,9 +306,6 @@ class SurveyGUI:
             self.entry_age.delete(0, END)
             self.entry_first_name.delete(0, END)
             
-        # TODO: Add input validation and error handling for age and name fields
-        # TODO: Capitalise the first letter of the name and ensure age is a positive integer
-
     def next_person(self):
             self.current_person += 1
             self.update_display()
@@ -325,6 +322,7 @@ class SurveyGUI:
 
     def add_new_person(self):
         self.frame3.grid_remove() #remove frame 3
+        self.frame4.grid_remove() #remove frame 4
         self.frame1.grid() #show frame 1
         self.frame2.grid()
 
