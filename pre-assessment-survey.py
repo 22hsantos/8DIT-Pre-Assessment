@@ -303,41 +303,45 @@ class SurveyGUI:
         self.age_display.config(text=self.people[self.current_person].age)
         self.phone_display.config(text=self.has_mobile_phone_print())
 
+        if self.current_person == 0:
+            self.previous_button.config(state=DISABLED)
+
+        elif self.current_person + 1 == len(self.people):
+            self.next_button.config(state=DISABLED)
+        else:
+            self.previous_button.config(state=NORMAL)
+            self.next_button.config(state=NORMAL)
+
     def get_info(self):
 
-        try:
+        if not self.entry_first_name.get() or not self.entry_age.get():
+            messagebox.showerror("showerror", "Please fill in all fields.") 
+            return
+        
+        elif not self.entry_age.get().isdigit() or int(self.entry_age.get()) <= 0:
+            messagebox.showerror("showerror", "Please enter a valid age.") 
+            return
+        
+        else:
             first_name = self.entry_first_name.get()
             age = int(self.entry_age.get())
             has_phone = self.phone_var.get()
             
             self.people.append(Person(first_name, age, has_phone))
 
+            messagebox.showinfo("showinfo", "Data entered successfully.") 
+
             self.entry_age.delete(0, END)
             self.entry_first_name.delete(0, END)
-
-            for person in self.people:
-                print(f"Name: {person.name}, Age: {person.age}, Has Mobile Phone: {person.has_mobile_phone}")
             
-            # TODO: Add input validation and error handling for age and name fields
-            # TODO: Capitalise the first letter of the name and ensure age is a positive integer
-            
-
-        except ValueError:
-            print("Please enter a valid age.")
+        # TODO: Add input validation and error handling for age and name fields
+        # TODO: Capitalise the first letter of the name and ensure age is a positive integer
 
     def next_person(self):
-        if self.current_person + 1 >= len(self.people):
-            self.next_button.config(state=DISABLED)
-        else:
-            self.previous_button.config(state=NORMAL)
             self.current_person += 1
             self.update_display()
     
     def previous_person(self):
-        if self.current_person <= 0:
-            self.previous_button.config(state=DISABLED)
-        else:
-            self.next_button.config(state=NORMAL)
             self.current_person -= 1
             self.update_display()
         
