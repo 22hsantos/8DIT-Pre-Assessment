@@ -29,9 +29,6 @@ class SurveyGUI:
     def __init__(self, parent):
         """
         Initialises the GUI, contains two frames for collection and viewing.
-
-        Args:
-            parent: The root window of the GUI.
         """
 
         parent.grid_rowconfigure(0, weight=1)#configure the grid priority for frame1
@@ -40,14 +37,17 @@ class SurveyGUI:
 
         self.people = [] #list to store person objects
         self.current_person = 0 #variable to keep track of the current person being displayed
+
         """
         Frame 4 will be used for displaying data. It is the bottom frame on the second screen.
         """
         #region for frame 4
-        #frame 4 will contain name, age, and mobile phone information. and will have next adn previous buttons
+        #frame 4 will contain name, age, and mobile phone information. and will have next and previous buttons
         self.frame4 = Frame(parent,bg="lightgreen")
         frame4 = self.frame4
-        self.frame4.grid(row=1, column=0, sticky=NSEW)
+        frame4.grid(row=1, column=0, sticky=NSEW)
+        frame4.grid_columnconfigure(0, weight=1)
+        frame4.grid_columnconfigure(1, weight=1)
 
         #first name label output
         lbl_first_name2 = Label(
@@ -58,10 +58,7 @@ class SurveyGUI:
             pady=5
         )
         lbl_first_name2.grid(row=0, column=0, sticky=W)
-        
-        #placeholder label for name output
-        entry_first_name = Label(frame4, text="John", bg="lightgreen")
-        entry_first_name.grid(row=0, column=1, sticky=W)
+
 
         #age label output
         lbl_age2 = Label(
@@ -73,37 +70,37 @@ class SurveyGUI:
         )
         lbl_age2.grid(row=1, column=0, sticky=W)
 
-        #placeholder label for age output
-        entry_age = Label(frame4, text="25", bg="lightgreen")
-        entry_age.grid(row=1, column=1, sticky=W)
+        #name
+        self.name_display = Label(self.frame4, text="", bg="lightgreen")
+        self.name_display.grid(row=0, column=1, sticky=W)
 
-        #mobile phone label output
-        lbl_mobile_phone2 = Label(
-            frame4,
-            text="John has a mobile phone.",
-            bg="lightgreen",
-            padx=20,
-            pady=5
-        )
-        lbl_mobile_phone2.grid(row=2, column=0, sticky=W)
+        #age
+        self.age_display = Label(self.frame4, text="", bg="lightgreen")
+        self.age_display.grid(row=1, column=1, sticky=W)
 
-        previous_button = Button(
-            frame4,
+        #mobile phone
+        self.phone_display = Label(self.frame4, text="", bg="lightgreen")
+        self.phone_display.grid(row=2, column=1, sticky=W)
+
+        self.previous_button = Button(
+            self.frame4,
             text="Previous",
             bg="lightgrey",
+            command=self.previous_person,
             padx=10,
-            pady=5
+            pady=5,
         )
-        previous_button.grid(row=3, column=0)
+        self.previous_button.grid(row=3, column=0)
 
-        next_button = Button(
-            frame4,
+        self.next_button = Button(
+            self.frame4,
             text="Next",
             bg="lightgrey",
+            command=self.next_person,
             padx=10,
-            pady=5
+            pady=5,
         )
-        next_button.grid(row=3, column=1)
+        self.next_button.grid(row=3, column=1)
         #endregion for frame 4
 
         """
@@ -269,35 +266,6 @@ class SurveyGUI:
             self.frame2.grid_remove() #remove frame 2
             self.frame3.grid()
             self.frame4.grid()
-
-            self.name_display = Label(self.frame4, text="", bg="lightgreen")
-            self.name_display.grid(row=0, column=1, sticky=W)
-
-            self.age_display = Label(self.frame4, text="", bg="lightgreen")
-            self.age_display.grid(row=1, column=1, sticky=W)
-
-            self.phone_display = Label(self.frame4, text="", bg="lightgreen")
-            self.phone_display.grid(row=2, column=1, sticky=W)
-
-            self.previous_button = Button(
-                self.frame4,
-                text="Previous",
-                bg="lightgrey",
-                command=self.previous_person,
-                padx=10,
-                pady=5,
-            )
-            self.previous_button.grid(row=3, column=0)
-
-            self.next_button = Button(
-                self.frame4,
-                text="Next",
-                bg="lightgrey",
-                command=self.next_person,
-                padx=10,
-                pady=5,
-            )
-            self.next_button.grid(row=3, column=1)
         
             self.update_display()
 
