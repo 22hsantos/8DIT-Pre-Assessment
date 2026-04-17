@@ -213,6 +213,7 @@ class SurveyGUI:
         btn_person_data = Button(
             frame3,
             text="Add New Person",
+            command=self.add_new_person,
             bg="lightgrey",
             padx=10,
             pady=5
@@ -258,26 +259,28 @@ class SurveyGUI:
 
     #when the show all button is pressed, entry fields and radio buttons are replaced with labels showing person data
     def display_data(self):
+
         if not self.people:
             messagebox.showerror("showerror", "No data to display. Please enter data first.") 
             return
         else:
-            #remove entry fields and radio buttons
-            self.entry_first_name.grid_remove()
-            self.entry_age.grid_remove()
-            self.btn_enter_data.grid_remove()
 
-            self.name_display = Label(self.frame2, text="", bg="lightblue")
+            self.frame1.grid_remove() #remove frame 1
+            self.frame2.grid_remove() #remove frame 2
+            self.frame3.grid()
+            self.frame4.grid()
+
+            self.name_display = Label(self.frame4, text="", bg="lightgreen")
             self.name_display.grid(row=0, column=1, sticky=W)
 
-            self.age_display = Label(self.frame2, text="", bg="lightblue")
+            self.age_display = Label(self.frame4, text="", bg="lightgreen")
             self.age_display.grid(row=1, column=1, sticky=W)
 
-            self.phone_display = Label(self.frame2, text="", bg="lightblue")
+            self.phone_display = Label(self.frame4, text="", bg="lightgreen")
             self.phone_display.grid(row=2, column=1, sticky=W)
 
             self.previous_button = Button(
-                self.frame2,
+                self.frame4,
                 text="Previous",
                 bg="lightgrey",
                 command=self.previous_person,
@@ -287,7 +290,7 @@ class SurveyGUI:
             self.previous_button.grid(row=3, column=0)
 
             self.next_button = Button(
-                self.frame2,
+                self.frame4,
                 text="Next",
                 bg="lightgrey",
                 command=self.next_person,
@@ -345,12 +348,17 @@ class SurveyGUI:
             self.current_person -= 1
             self.update_display()
         
-
     def has_mobile_phone_print(self):
         if self.people[self.current_person].has_mobile_phone == "Yes":
             return f"{self.people[self.current_person].name} has a mobile phone."
         else:
             return f"{self.people[self.current_person].name} does not have a mobile phone."
+
+    def add_new_person(self):
+        self.frame3.grid_remove() #remove frame 3
+        self.frame1.grid() #show frame 1
+        self.frame2.grid()
+
 if __name__ == "__main__":
     root = Tk()
     root.title("Pre-assessment survey: Gather information") 
