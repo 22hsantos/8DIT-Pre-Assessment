@@ -27,52 +27,80 @@ class SurveyGUI:
         parent.grid_rowconfigure(1, weight=1)#configure the grid priority for frame2
         parent.grid_columnconfigure(0, weight=1)#configure the grid priority for column 0
 
-        #frame1 will be used for 'Collecting Person Data'
-        #'Collecting Person Data' label will added, with 'Show All' button to the right
-        frame1 = Frame(
-            parent, 
-            bg="pink"
-            )
-        frame1.grid(row=0, column=0, sticky=NSEW)
-        frame1.grid_rowconfigure(0, weight=1)
-        frame1.grid_columnconfigure(0, weight=1)
-        frame1.grid_columnconfigure(1, weight=1)
+        """
+        Frame 4 will be used for displaying data. It is the bottom frame on the second screen.
+        """
 
+        #frame 4 will contain name, age, and mobile phone information. and will have next adn previous buttons
+        self.frame4 = Frame(parent,bg="lightgreen")
+        frame4 = self.frame4
+        self.frame4.grid(row=1, column=0, sticky=NSEW)
 
-        #Collecting Person Data label
-        lbl_person_data =Label(
-            frame1,
-            text="Collecting Person Data",
-            bg="pink"
+        #first name label output
+        lbl_first_name2 = Label(
+            frame4,
+            text="First name:",
+            bg="lightgreen",
+            padx=20,
+            pady=5
         )
-        lbl_person_data.grid(row=0,column=0)
+        lbl_first_name2.grid(row=0, column=0, sticky=W)
+        
+        #placeholder label for name output
+        entry_first_name = Label(frame4, text="John", bg="lightgreen")
+        entry_first_name.grid(row=0, column=1, sticky=W)
 
-        #Show All button
-        btn_person_data = Button(
-            frame1,
-            text="Show All",
+        #age label output
+        lbl_age2 = Label(
+            frame4,
+            text="Age:",
+            bg="lightgreen",
+            padx=20,
+            pady=5
+        )
+        lbl_age2.grid(row=1, column=0, sticky=W)
+
+        #placeholder label for age output
+        entry_age = Label(frame4, text="25", bg="lightgreen")
+        entry_age.grid(row=1, column=1, sticky=W)
+
+        #mobile phone label output
+        lbl_mobile_phone2 = Label(
+            frame4,
+            text="John has a mobile phone.",
+            bg="lightgreen",
+            padx=20,
+            pady=5
+        )
+        lbl_mobile_phone2.grid(row=2, column=0, sticky=W)
+
+        previous_button = Button(
+            frame4,
+            text="Previous",
             bg="lightgrey",
             padx=10,
             pady=5
         )
-        btn_person_data.grid(row=0, column=1)
+        previous_button.grid(row=3, column=0)
 
+        next_button = Button(
+            frame4,
+            text="Next",
+            bg="lightgrey",
+            padx=10,
+            pady=5
+        )
+        next_button.grid(row=3, column=1)
 
         """
-        planned layout for frame2:
-        +------------------------------------------------------+
-        |  First name:              |  Entry  |                |
-        |  Age:                     |  Entry  |                |
-        | Do you have a mobile phone? o                        |
-        |                             o                        |
-        |           [Enter Data]                               |
-        |                                                      |
-        +------------------------------------------------------+
+        Frame 2 will be used for data collection. It is the bottom frame on the first screen.
+        It will collect name, age, and the answer to the survey question "Do you have a mobile phone?".
+        This frame overlays frame 4.
         """
-        #frame 2 will be used for data collection
-        #This will contain labels and entry fields for name, age, mobile phone, and enter data button
-        frame2 = Frame(parent,bg="lightblue")
-        frame2.grid(row=1, column=0, sticky=NSEW)
+        #Frame 2
+        self.frame2 = Frame(parent,bg="lightblue")
+        frame2 = self.frame2
+        self.frame2.grid(row=1, column=0, sticky=NSEW)
 
         #first name label
         lbl_first_name = Label(
@@ -134,15 +162,89 @@ class SurveyGUI:
         btn_enter_data = Button(
             frame2,
             text="Enter Data",
+            command=self.switch_to_display,
             bg="lightgrey",
             padx=10,
             pady=5
         )
         btn_enter_data.grid(row=3, column=1)
 
+
+        """
+        Frame 3 will be used for display person data and add new person button. It is the top frame on the second screen.
+        """
+        #frame 3
+        self.frame3 = Frame(
+            parent, 
+            bg="pink"
+            )
+        self.frame3.grid(row=0, column=0, sticky=NSEW)
+        self.frame3.grid_rowconfigure(0, weight=1)
+        self.frame3.grid_columnconfigure(0, weight=1)
+        self.frame3.grid_columnconfigure(1, weight=1)
+        frame3 = self.frame3
+
+        #displaying person data label
+        lbl_person_data =Label(
+            frame3,
+            text="Displaying person data",
+            bg="pink"
+        )
+        lbl_person_data.grid(row=0,column=0)
+
+        #Add New Person button
+        btn_person_data = Button(
+            frame3,
+            text="Add New Person",
+            bg="lightgrey",
+            padx=10,
+            pady=5
+        )
+        btn_person_data.grid(row=0, column=1)
+
+        """
+        Frame 1 will be used for the title and show all button. It is the top frame on the first screen.
+        Frame one overlays frame 3.
+        """
+        #frame 1
+        self.frame1 = Frame(
+            parent, 
+            bg="#FFFA9E"
+            )
+        frame1 = self.frame1
+        self.frame1.grid(row=0, column=0, sticky=NSEW)
+        self.frame1.grid_rowconfigure(0, weight=1)
+        self.frame1.grid_columnconfigure(0, weight=1)
+        self.frame1.grid_columnconfigure(1, weight=1)
+
+        #Collecting Person Data label
+        lbl_person_data =Label(
+            frame1,
+            text="Collecting Person Data",
+            bg="#FFFA9E"
+        )
+        lbl_person_data.grid(row=0,column=0)
+
+        #Show All button
+        btn_person_data = Button(
+            frame1,
+            text="Show All",
+            bg="lightgrey",
+            padx=10,
+            pady=5
+        )
+        btn_person_data.grid(row=0, column=1)
+
+    #when the enter data button is pressed, frames 1 and 2 will be removed and frames 3 and 4 will be displayed, showing results
+    def switch_to_display(self):
+        self.frame1.grid_remove()
+        self.frame2.grid_remove()
+        self.frame3.grid()
+        self.frame4.grid()
+
 if __name__ == "__main__":
     root = Tk()
-    root.title("Pre-assessment survey")
+    root.title("Pre-assessment survey: Gather information")
     root.geometry("400x400")
     main = SurveyGUI(root)
     root.mainloop()
