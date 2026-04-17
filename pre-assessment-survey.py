@@ -269,9 +269,14 @@ class SurveyGUI:
             has_phone = self.phone_var.get()
             
             self.people.append(Person(first_name, age, has_phone))
-            
+
+            self.entry_age.delete(0, END)
+            self.entry_first_name.delete(0, END)
+
             for person in self.people:
                 print(f"Name: {person.name}, Age: {person.age}, Has Mobile Phone: {person.has_mobile_phone}")
+            
+            #add message to show data has been entered?
 
         except ValueError:
             print("Please enter a valid age.")
