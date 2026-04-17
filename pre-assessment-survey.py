@@ -99,6 +99,7 @@ class SurveyGUI:
         This frame overlays frame 4.
         """
         #region for frame 2
+
         #Frame 2
         self.frame2 = Frame(parent,bg="lightblue")
         frame2 = self.frame2
@@ -115,8 +116,8 @@ class SurveyGUI:
         lbl_first_name.grid(row=0, column=0, sticky=W)
         
         #entry field for first name
-        entry_first_name = Entry(frame2)
-        entry_first_name.grid(row=0, column=1, sticky=W)
+        self.entry_first_name = Entry(frame2)
+        self.entry_first_name.grid(row=0, column=1, sticky=W)
 
         #age label
         lbl_age = Label(
@@ -129,8 +130,8 @@ class SurveyGUI:
         lbl_age.grid(row=1, column=0, sticky=W)
 
         #entry field for age
-        entry_age = Entry(frame2)
-        entry_age.grid(row=1, column=1, sticky=W)
+        self.entry_age = Entry(frame2)
+        self.entry_age.grid(row=1, column=1, sticky=W)
 
         #mobile phone label
         lbl_mobile_phone = Label(
@@ -164,6 +165,7 @@ class SurveyGUI:
         btn_enter_data = Button(
             frame2,
             text="Enter Data",
+            command=self.get_info,
             bg="lightgrey",
             padx=10,
             pady=5
@@ -247,6 +249,17 @@ class SurveyGUI:
         self.frame2.grid_remove()
         self.frame3.grid()
         self.frame4.grid()
+    
+    def get_info(self):
+
+        try:
+            first_name = self.entry_first_name.get()
+            age = int(self.entry_age.get())
+            has_phone = self.phone_var.get()
+            print(f"Name: {first_name}, Age: {age}, Has mobile phone: {has_phone}")
+
+        except ValueError:
+            print("Please enter a valid age.")
 
 if __name__ == "__main__":
     root = Tk()
