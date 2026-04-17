@@ -266,7 +266,8 @@ class SurveyGUI:
             self.frame2.grid_remove() #remove frame 2
             self.frame3.grid()
             self.frame4.grid()
-        
+
+            self.current_person = 0
             self.update_display()
 
     def update_display(self):
@@ -294,7 +295,7 @@ class SurveyGUI:
             return
         
         else:
-            first_name = self.entry_first_name.get()
+            first_name = self.entry_first_name.get().title()
             age = int(self.entry_age.get())
             has_phone = self.phone_var.get()
             
