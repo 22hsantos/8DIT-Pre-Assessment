@@ -38,7 +38,7 @@ class SurveyGUI:
         parent.grid_rowconfigure(1, weight=1)#configure the grid priority for frame2
         parent.grid_columnconfigure(0, weight=1)#configure the grid priority for column 0
 
-        self.people = [Person("John", 25, "Yes"), Person("Jane", 30, "No"), Person("Bob", 35, "Yes")] #list to store person objects
+        self.people = [] #list to store person objects
         self.current_person = 0 #variable to keep track of the current person being displayed
         """
         Frame 4 will be used for displaying data. It is the bottom frame on the second screen.
@@ -305,11 +305,11 @@ class SurveyGUI:
 
         if self.current_person == 0:
             self.previous_button.config(state=DISABLED)
-
-        elif self.current_person + 1 == len(self.people):
-            self.next_button.config(state=DISABLED)
         else:
             self.previous_button.config(state=NORMAL)
+        if self.current_person + 1 >= len(self.people):
+            self.next_button.config(state=DISABLED)
+        else:
             self.next_button.config(state=NORMAL)
 
     def get_info(self):
