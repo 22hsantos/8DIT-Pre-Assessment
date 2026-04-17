@@ -30,7 +30,7 @@ class SurveyGUI:
         """
         Frame 4 will be used for displaying data. It is the bottom frame on the second screen.
         """
-
+        #region for frame 4
         #frame 4 will contain name, age, and mobile phone information. and will have next adn previous buttons
         self.frame4 = Frame(parent,bg="lightgreen")
         frame4 = self.frame4
@@ -91,12 +91,14 @@ class SurveyGUI:
             pady=5
         )
         next_button.grid(row=3, column=1)
+        #endregion for frame 4
 
         """
         Frame 2 will be used for data collection. It is the bottom frame on the first screen.
         It will collect name, age, and the answer to the survey question "Do you have a mobile phone?".
         This frame overlays frame 4.
         """
+        #region for frame 2
         #Frame 2
         self.frame2 = Frame(parent,bg="lightblue")
         frame2 = self.frame2
@@ -162,17 +164,17 @@ class SurveyGUI:
         btn_enter_data = Button(
             frame2,
             text="Enter Data",
-            command=self.switch_to_display,
             bg="lightgrey",
             padx=10,
             pady=5
         )
         btn_enter_data.grid(row=3, column=1)
-
-
+        #endregion for frame 2
+        
         """
         Frame 3 will be used for display person data and add new person button. It is the top frame on the second screen.
         """
+        #region for frame 3
         #frame 3
         self.frame3 = Frame(
             parent, 
@@ -201,11 +203,13 @@ class SurveyGUI:
             pady=5
         )
         btn_person_data.grid(row=0, column=1)
-
+        #endregion for frame 3
+        
         """
         Frame 1 will be used for the title and show all button. It is the top frame on the first screen.
         Frame one overlays frame 3.
         """
+        #region for frame 1
         #frame 1
         self.frame1 = Frame(
             parent, 
@@ -231,11 +235,13 @@ class SurveyGUI:
             text="Show All",
             bg="lightgrey",
             padx=10,
-            pady=5
+            pady=5,
+            command=self.switch_to_display
         )
         btn_person_data.grid(row=0, column=1)
+        #endregion for frame 1
 
-    #when the enter data button is pressed, frames 1 and 2 will be removed and frames 3 and 4 will be displayed, showing results
+    #when the show all button is pressed, frames 1 and 2 will be removed and frames 3 and 4 will be displayed, showing results
     def switch_to_display(self):
         self.frame1.grid_remove()
         self.frame2.grid_remove()
