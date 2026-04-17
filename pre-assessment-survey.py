@@ -11,6 +11,15 @@
 
 from tkinter import *
 
+class Person:
+    """
+    Class to create a person object with name, age, and mobile phone status.
+    """
+    def __init__(self, name, age, has_mobile_phone):
+        self.name = name
+        self.age = age
+        self.has_mobile_phone = has_mobile_phone
+
 class SurveyGUI:
     """
     GUI class for the survey interface.
@@ -26,6 +35,8 @@ class SurveyGUI:
         parent.grid_rowconfigure(0, weight=1)#configure the grid priority for frame1
         parent.grid_rowconfigure(1, weight=1)#configure the grid priority for frame2
         parent.grid_columnconfigure(0, weight=1)#configure the grid priority for column 0
+
+        self.people = [] #list to store person objects
 
         """
         Frame 4 will be used for displaying data. It is the bottom frame on the second screen.
@@ -256,14 +267,18 @@ class SurveyGUI:
             first_name = self.entry_first_name.get()
             age = int(self.entry_age.get())
             has_phone = self.phone_var.get()
-            print(f"Name: {first_name}, Age: {age}, Has mobile phone: {has_phone}")
+            
+            self.people.append(Person(first_name, age, has_phone))
+            
+            for person in self.people:
+                print(f"Name: {person.name}, Age: {person.age}, Has Mobile Phone: {person.has_mobile_phone}")
 
         except ValueError:
             print("Please enter a valid age.")
 
 if __name__ == "__main__":
     root = Tk()
-    root.title("Pre-assessment survey: Gather information")
+    root.title("Pre-assessment survey: Gather information") 
     root.geometry("400x400")
     main = SurveyGUI(root)
     root.mainloop()
