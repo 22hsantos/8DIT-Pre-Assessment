@@ -36,8 +36,8 @@ class SurveyGUI:
         parent.grid_rowconfigure(1, weight=1)#configure the grid priority for frame2
         parent.grid_columnconfigure(0, weight=1)#configure the grid priority for column 0
 
-        self.people = [] #list to store person objects
-
+        self.people = [Person("John", 25, "Yes"), Person("Jane", 30, "No"), Person("Bob", 35, "Yes")] #list to store person objects
+        self.current_person = 0 #variable to keep track of the current person being displayed
         """
         Frame 4 will be used for displaying data. It is the bottom frame on the second screen.
         """
@@ -256,27 +256,25 @@ class SurveyGUI:
 
     #when the show all button is pressed, entry fields and radio buttons are replaced with labels showing person data
     def display_data(self):
-
         #remove entry fields and radio buttons
         self.entry_first_name.grid_remove()
         self.entry_age.grid_remove()
         self.btn_enter_data.grid_remove()
 
-
-        self.name_display = Label(self.frame2, text=self.people[0].name, bg="lightblue")
+        self.name_display = Label(self.frame2, text="", bg="lightblue")
         self.name_display.grid(row=0, column=1, sticky=W)
 
-        self.age_display = Label(self.frame2, text=self.people[0].age, bg="lightblue")
+        self.age_display = Label(self.frame2, text="", bg="lightblue")
         self.age_display.grid(row=1, column=1, sticky=W)
 
-        self.phone_display = Label(self.frame2, text=self.has_mobile_phone_print(), bg="lightblue")
+        self.phone_display = Label(self.frame2, text="", bg="lightblue")
         self.phone_display.grid(row=2, column=1, sticky=W)
 
         self.previous_button = Button(
             self.frame2,
             text="Previous",
             bg="lightgrey",
-            state=DISABLED,
+            command=self.previous_person,
             padx=10,
             pady=5,
         )
@@ -286,12 +284,19 @@ class SurveyGUI:
             self.frame2,
             text="Next",
             bg="lightgrey",
-            command=self.person_display,
+            command=self.next_person,
             padx=10,
             pady=5,
         )
         self.next_button.grid(row=3, column=1)
     
+        self.update_display()
+
+    def update_display(self):
+        self.name_display.config(text=self.people[self.current_person].name)
+        self.age_display.config(text=self.people[self.current_person].age)
+        self.phone_display.config(text=self.has_mobile_phone_print())
+
     def get_info(self):
 
         try:
@@ -314,15 +319,24 @@ class SurveyGUI:
         except ValueError:
             print("Please enter a valid age.")
 
-    def person_display(self):
-        #function to display person data one by one using next and previous buttons
-        pass
+    def next_person(self):
+        self.current_person += 1
+        if self.current_person >= len(self.people) - 1:
+            self.next_button.config(state=DISABLED)
+        self.update_display()
+    
+    def previous_person(self):
+        self.current_person -= 1
+        if self.current_person <= 0:
+            self.previous_button.config(state=DISABLED)
+        self.update_display()
+        
 
     def has_mobile_phone_print(self):
-        if self.people[0].has_mobile_phone == "Yes":
-            return f"{self.people[0].name} has a mobile phone."
+        if self.people[self.current_person].has_mobile_phone == "Yes":
+            return f"{self.people[self.current_person].name} has a mobile phone."
         else:
-            return f"{self.people[0].name} does not have a mobile phone."
+            return f"{self.people[self.current_person].name} does not have a mobile phone."
 if __name__ == "__main__":
     root = Tk()
     root.title("Pre-assessment survey: Gather information") 
